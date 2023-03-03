@@ -44,12 +44,12 @@ class TodoWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var _userInputText = '';
-    final _textController = TextEditingController();
+    var userInputText = '';
+    final textController = TextEditingController();
 
     void clearText() {
-      _textController.clear();
-      _userInputText = '';
+      textController.clear();
+      userInputText = '';
     }
 
     return Consumer(
@@ -78,7 +78,7 @@ class TodoWidget extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 4.0),
                       child: TextField(
-                        controller: _textController,
+                        controller: textController,
                         decoration: InputDecoration(
                           hintText: "Enter a task to do...",
                           suffixIcon: IconButton(
@@ -88,15 +88,15 @@ class TodoWidget extends StatelessWidget {
                         ),
                         textAlign: TextAlign.start,
                         onChanged: (value) {
-                          _userInputText = value;
+                          userInputText = value;
                         },
                         onSubmitted: (value) {
                           if (value.isEmpty) {
-                            _userInputText = 'Title not set up';
+                            userInputText = 'Title not set up';
                           }
                           ref
                               .read(todoListProvider.notifier)
-                              .addThingstoDo(_userInputText);
+                              .addThingstoDo(userInputText);
                           clearText();
                         },
                       ),
@@ -160,8 +160,6 @@ class TodoWidget extends StatelessWidget {
                                 child: Text('Delete All'),
                               ),
                               onTap: () {
-                                final dones =
-                                    todos.where((task) => task.isDone).toList();
                                 ref
                                     .read(todoListProvider.notifier)
                                     .deleteAllTasks();

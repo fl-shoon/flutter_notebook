@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_notebook/pages/components/riverpod_page.dart';
 import 'package:flutter_notebook/router/router.dart';
+import '../searchApp/search_app.dart';
 
 class RxDPage extends StatelessWidget {
   const RxDPage() : super(key: const Key('rxd_page'));
@@ -8,6 +9,7 @@ class RxDPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: ValueKey(MediaQuery.of(context).orientation),
       appBar: AppBar(title: const Text('RxDart')),
       body: Router(
         routerDelegate: ScaffRouterDelegate(
@@ -16,6 +18,8 @@ class RxDPage extends StatelessWidget {
             final pages = [
               if (state.path.contains('rpdpage'))
                 const MaterialPage(child: RpDPage()),
+              if (state.path.contains('rxdpage'))
+                const MaterialPage(child: SearchPage()),
             ];
             return pages;
           },
